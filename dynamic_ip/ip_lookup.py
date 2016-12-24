@@ -16,7 +16,7 @@ config = configparser.ConfigParser()
 
 config.read(os.path.join(HERE,"config/dynamic_ip.ini"))
 
-IP_DB = os.path.join(HERE,config["local values"]["db/.ip_record.db"])
+IP_DB = os.path.join(HERE,config["local values"]["IP_DB"])
 IP_URL = config["local values"]["IP_URL"]
 IP_LINE = config["local values"]["IP_LINE"]
 

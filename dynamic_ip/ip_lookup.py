@@ -95,6 +95,8 @@ def update_ip( pub_ip,cur_ip, test = False):
     try:
         conn = sqlite3.connect(IP_DB)
 
+        logging.info("checking ip.  Old ip: {old_ip}, New ip: {new_ip}".format(old_ip = cur_ip,
+                                                                               new_ip = pub_ip))
         ret = []
 
 

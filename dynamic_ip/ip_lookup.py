@@ -123,7 +123,7 @@ def update_ip( pub_ip,cur_ip, test = False):
                     cur.execute("UPDATE ip_record SET ip = ?", [str(pub_ip).strip()])
                     conn.commit()
                     logging.info("updated ip to {pub_ip}".format(pub_ip))
-                    
+
                 else:
                     logging.warning("ip failed.  response from godaddy: \n {text}".\
                                     format(text = ret[-1].text))

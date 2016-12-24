@@ -103,11 +103,8 @@ def update_ip( pub_ip,cur_ip, test = False):
         if re.search(IP_PATTERN,str(pub_ip)) \
                 and str(pub_ip).strip() != str(cur_ip).strip():
 
-            cur = conn.cursor()
-            cur.execute("UPDATE ip_record SET ip = ? WHERE service = 'current_ip'",[str(pub_ip).strip()])
-            conn.commit()
-            # TODO Add Log
-            logging.info("updated ip to {pub_ip}".format(pub_ip))
+
+
 
             if EMAIL == True:
                 p1 = subprocess.Popen(["echo",IP_EMAIL_MESSAGE.format(ip = pub_ip)],stdout = subprocess.PIPE)
@@ -119,6 +116,14 @@ def update_ip( pub_ip,cur_ip, test = False):
                 ret.append(gd_update.update_ip(pub_ip,domain, test))
                 if ret[-1].status_code == 200:
                     logging.info("ip updated successfully")
+
+                    # TODO add table structure so that each domain's ip address
+                    # TODO is tracked and updated
+                    cur = conn.cursor()
+                    cur.execute("UPDATE ip_record SET ip = ?", [str(pub_ip).strip()])
+                    conn.commit()
+                    logging.info("updated ip to {pub_ip}".format(pub_ip))
+                    
                 else:
                     logging.warning("ip failed.  response from godaddy: \n {text}".\
                                     format(text = ret[-1].text))
